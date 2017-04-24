@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.checked">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_checked"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/App">
+
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- AddTaskActivity -->
+        <activity
+            android:name=".AddTaskActivity"
+            android:parentActivityName=".MainActivity" />
+
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+
+        <provider
+            android:name=".data.TaskContentProvider"
+            android:authorities="com.example.checked"
+            android:exported="false" />
+
+
+        <receiver android:name=".AlarmToastReceiver" />
+        <receiver
+            android:name=".CheckedReceiver"
+            android:exported="true" />
+        <receiver
+            android:name=".CheckWidget"
+            android:enabled="true"
+            android:exported="true"
+            android:label="Checked">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="ACTION_DATA_UPDATED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_first_look" />
+            /
+        </receiver>
+
+        <service
+            android:name=".WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity android:name=".Archive" />
+        <activity
+            android:name=".Settings"
+            android:label="Settings"
+            android:theme="@style/pref" />
+
+    </application>
+
+</manifest>

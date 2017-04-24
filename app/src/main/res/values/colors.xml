@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- colors for general appearance -->
+    <item type="color" name="colorPrimary">#fafafa</item>
+    <item type="color" name="colorPrimaryDark">#222</item>
+    <color name="colorAccent">#EA4335</color>
+
+
+    <item type="color" name="colorWindowBackground">#fafafa</item>
+    <item type="color" name="onDraw">#66bb6a</item>
+
+    <item type="color" name="widget_background">#f5f5f5</item>
+    <item type="color" name="widget_title">#b5000000</item>
+    <item type="color" name="widget_content">#6b6b6b</item>
+    <item type="color" name="widget_divider">#bebebe</item>
+
+    <item type="color" name="color_black">#000000</item>
+    <item type="color" name="color_gray">#6b6b6b</item>
+
+
+    <array name="color_array">
+        <item>#3F51B5</item>
+        <item>#26c6da</item>
+        <item>#009688</item>
+        <item>#4caf50</item>
+        <item>#607D8B</item>
+        <item>#827717</item>
+        <item>#c99b3e</item>
+        <item>#3e2723</item>
+
+
+    </array>
+
+
+
+
+
+</resources>
