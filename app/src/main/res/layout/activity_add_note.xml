@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-    This layout defines the main activity screen and displays a list of tasks (if they exist),
-    and a floating action button that launches another activity.
--->
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.example.checked.note.Notes">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/archive_toolbar"
+        android:id="@+id/note_toolbar"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:background="@color/colorPrimary"
@@ -20,44 +18,38 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" >
+        tools:layout_constraintTop_creator="1">
 
         <TextView
+            android:id="@+id/toolbar_note_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/toolbar_archive_title"
-            android:text="Archive"
+            android:text="Notes"
             android:textColor="@color/color_black"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
     </android.support.v7.widget.Toolbar>
-    <!-- RecyclerView that is responsible for holding a list of task data -->
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerviewarchive"
+        android:id="@+id/recyclerviewNote"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:paddingBottom="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/archive_toolbar"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1"
+        app:layout_constraintTop_toBottomOf="@+id/note_toolbar"
         app:layout_constraintHorizontal_bias="0.0"
-
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/adArchive" />
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/adNote" />
 
     <TextView
         android:textSize="20sp"
-        android:id="@+id/archive_empty_view"
+        android:id="@+id/note_empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Archive is empty."
+        android:text="Nothing to Remember"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
@@ -67,19 +59,29 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/adArchive"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/fab_add"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/adNote" />
+
+
+    <LinearLayout
+        android:id="@+id/adNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
-

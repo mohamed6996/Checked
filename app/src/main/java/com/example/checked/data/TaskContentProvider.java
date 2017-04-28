@@ -29,44 +29,31 @@ import android.support.annotation.NonNull;
 import static com.example.checked.data.TaskContract.TaskEntry.TABLE_NAME;
 
 
-// Verify that TaskContentProvider extends from ContentProvider and implements required methods
 public class TaskContentProvider extends ContentProvider {
 
-    // Define final integer constants for the directory of tasks and a single item.
-    // It's convention to use 100, 200, 300, etc for directories,
-    // and related ints (101, 102, ..) for items in that directory.
     public static final int TASKS = 100;
     public static final int TASK_WITH_ID = 101;
     public static final int ARCHIVE = 200;
     public static final int ARCHIVE_WITH_ID = 201;
+    public static final int NOTES = 300;
+    public static final int NOTES_WITH_ID = 301;
 
 
-
-    // CDeclare a static variable for the Uri matcher that you construct
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
-    // Define a static buildUriMatcher method that associates URI's with their int match
 
-    /**
-     * Initialize a new matcher object without any matches,
-     * then use .addURI(String authority, String path, int match) to add matches
-     */
     public static UriMatcher buildUriMatcher() {
 
-        // Initialize a UriMatcher with no matches by passing in NO_MATCH to the constructor
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        /*
-          All paths added to the UriMatcher have a corresponding int.
-          For each kind of uri you may want to access, add the corresponding match with addURI.
-          The two calls below add matches for the task directory and a single item by ID.
-         */
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS, TASKS);
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS + "/#", TASK_WITH_ID);
 
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_ARCHIVE, ARCHIVE);
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_ARCHIVE + "/#", ARCHIVE_WITH_ID);
 
+        uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_NOTE, NOTES);
+        uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_NOTE + "/#", NOTES_WITH_ID);
 
 
         return uriMatcher;
@@ -85,7 +72,6 @@ public class TaskContentProvider extends ContentProvider {
     }
 
 
-    // Implement insert to handle requests to insert a single new row of data
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
         // Get access to the task database (to write new data to)
@@ -98,8 +84,7 @@ public class TaskContentProvider extends ContentProvider {
         switch (match) {
             case TASKS:
                 // Insert new values into the database
-                // Inserting values into tasks table
-                 id = db.insert(TABLE_NAME, null, values);
+                id = db.insert(TABLE_NAME, null, values);
                 if (id > 0) {
                     returnUri = ContentUris.withAppendedId(TaskContract.TaskEntry.CONTENT_URI, id);
                 } else {
@@ -109,9 +94,19 @@ public class TaskContentProvider extends ContentProvider {
 
             case ARCHIVE:
 
-                 id = db.insert(TaskContract.TaskArchiveEntry.TABLE_NAME, null, values);
+                id = db.insert(TaskContract.TaskArchiveEntry.TABLE_NAME, null, values);
                 if (id > 0) {
                     returnUri = ContentUris.withAppendedId(TaskContract.TaskArchiveEntry.CONTENT_URI, id);
+                } else {
+                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                }
+                break;
+
+            case NOTES:
+
+                id = db.insert(TaskContract.NoteEntry.TABLE_NAME, null, values);
+                if (id > 0) {
+                    returnUri = ContentUris.withAppendedId(TaskContract.NoteEntry.CONTENT_URI, id);
                 } else {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 }
@@ -130,7 +125,6 @@ public class TaskContentProvider extends ContentProvider {
     }
 
 
-    // Implement query to handle requests for data by URI
     @Override
     public Cursor query(@NonNull Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
@@ -160,7 +154,6 @@ public class TaskContentProvider extends ContentProvider {
                 selection = TaskContract.TaskArchiveEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
 
-                // This will perform a query on the pets table where the _id equals 3 to return a
                 // Cursor containing that row of the table.
                 retCursor = db.query(TaskContract.TaskArchiveEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
@@ -180,11 +173,29 @@ public class TaskContentProvider extends ContentProvider {
                 selection = TaskContract.TaskEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
 
-                // This will perform a query on the pets table where the _id equals 3 to return a
                 // Cursor containing that row of the table.
                 retCursor = db.query(TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
                 break;
+
+            case NOTES:
+                retCursor = db.query(TaskContract.NoteEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            case NOTES_WITH_ID:
+                selection = TaskContract.NoteEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+
+                // Cursor containing that row of the table.
+                retCursor = db.query(TaskContract.NoteEntry.TABLE_NAME, projection, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
+
             // Default exception
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -198,19 +209,16 @@ public class TaskContentProvider extends ContentProvider {
     }
 
 
-    // Implement delete to delete a single row of data
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
 
-        // Get access to the database and write URI matching code to recognize a single item
         final SQLiteDatabase db = mTaskDbHelper.getWritableDatabase();
 
         int match = sUriMatcher.match(uri);
         // Keep track of the number of deleted tasks
-        int tasksDeleted; // starts as 0
+        int tasksDeleted;
 
         // Write the code to delete a single row of data
-        // [Hint] Use selections to delete an item by its row ID
         switch (match) {
             // Handle the single item case, recognized by the ID included in the URI path
             case TASK_WITH_ID:
@@ -218,6 +226,13 @@ public class TaskContentProvider extends ContentProvider {
                 String id = uri.getPathSegments().get(1);
                 // Use selections/selectionArgs to filter for this ID
                 tasksDeleted = db.delete(TABLE_NAME, "_id=?", new String[]{id});
+                break;
+
+            case NOTES_WITH_ID:
+                // Get the task ID from the URI path
+                String noteId = uri.getPathSegments().get(1);
+                // Use selections/selectionArgs to filter for this ID
+                tasksDeleted = db.delete(TaskContract.NoteEntry.TABLE_NAME, "_id=?", new String[]{noteId});
                 break;
 
             case ARCHIVE_WITH_ID:
@@ -228,11 +243,11 @@ public class TaskContentProvider extends ContentProvider {
                 break;
 
             case ARCHIVE:
-                // Get the task ID from the URI path
-              //  String rowId = uri.getPathSegments().get(1);
-                // Use selections/selectionArgs to filter for this ID
-                tasksDeleted = db.delete(TaskContract.TaskArchiveEntry.TABLE_NAME, null,null);
+
+                tasksDeleted = db.delete(TaskContract.TaskArchiveEntry.TABLE_NAME, null, null);
                 break;
+
+
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -270,8 +285,24 @@ public class TaskContentProvider extends ContentProvider {
                     getContext().getContentResolver().notifyChange(uri, null);
                 }
 
-                // Return the number of rows updated
                 return rowsUpdated;
+
+            case NOTES_WITH_ID:
+
+                selection = TaskContract.NoteEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+
+                SQLiteDatabase noteDataBase = mTaskDbHelper.getWritableDatabase();
+
+                // Perform the update on the database and get the number of rows affected
+                int noteUpdatedId = noteDataBase.update(TaskContract.NoteEntry.TABLE_NAME, values, selection, selectionArgs);
+
+                if (noteUpdatedId != 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+                // Return the number of rows updated
+                return noteUpdatedId;
+
         }
         throw new UnsupportedOperationException("Not yet implemented");
     }

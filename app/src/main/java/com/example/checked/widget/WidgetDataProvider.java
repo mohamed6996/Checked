@@ -1,4 +1,4 @@
-package com.example.checked;
+package com.example.checked.widget;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 
+import com.example.checked.R;
 import com.example.checked.data.TaskContract;
 
 import java.text.SimpleDateFormat;

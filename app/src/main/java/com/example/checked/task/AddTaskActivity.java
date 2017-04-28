@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.checked;
+package com.example.checked.task;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -39,6 +39,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.checked.Constants;
+import com.example.checked.MainActivity;
+import com.example.checked.R;
+import com.example.checked.archive.Archive;
 import com.example.checked.data.TaskContract;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
@@ -152,7 +156,7 @@ public class AddTaskActivity extends AppCompatActivity implements TimePickerDial
                 new SpectrumDialog.Builder(AddTaskActivity.this)
                         .setColors(R.array.color_array)
                         .setDismissOnColorSelected(false)
-                        //   .setOutlineWidth(2)
+                        .setFixedColumnCount(4)
 
                         .setOnColorSelectedListener(new SpectrumDialog.OnColorSelectedListener() {
                             @Override
@@ -299,28 +303,28 @@ public class AddTaskActivity extends AppCompatActivity implements TimePickerDial
         }
 
         int[] color_array = this.getResources().getIntArray(R.array.color_array);
-        if (position == Constants.FIRST_COLR) {
+        if (position == Constants.ONE) {
             toolbar.setBackgroundColor(color_array[0]);
         }
-        if (position == Constants.SECOND_COLOR) {
+        if (position == Constants.TWO) {
             toolbar.setBackgroundColor(color_array[1]);
         }
-        if (position == Constants.THIRD_COLOR) {
+        if (position == Constants.THREE) {
             toolbar.setBackgroundColor(color_array[2]);
         }
-        if (position == Constants.FORTH_COLOR) {
+        if (position == Constants.FOUR) {
             toolbar.setBackgroundColor(color_array[3]);
         }
-        if (position == Constants.FIFTH_COLOR) {
+        if (position == Constants.FIVE) {
             toolbar.setBackgroundColor(color_array[4]);
         }
-        if (position == Constants.SIXTH_COLOR) {
+        if (position == Constants.SIX) {
             toolbar.setBackgroundColor(color_array[5]);
         }
-        if (position == Constants.SEVENTH_COLOR) {
+        if (position == Constants.SEVEN) {
             toolbar.setBackgroundColor(color_array[6]);
         }
-        if (position == Constants.EIGHTH_COLOR) {
+        if (position == Constants.EIGHT) {
             toolbar.setBackgroundColor(color_array[7]);
         }
 

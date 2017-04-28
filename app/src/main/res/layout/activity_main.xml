@@ -88,8 +88,8 @@
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         fab:menu_animationDelayPerItem="50"
@@ -102,6 +102,7 @@
         fab:menu_labels_colorNormal="#333333"
         fab:menu_labels_colorPressed="#444444"
         fab:menu_labels_colorRipple="#66FFFFFF"
+        fab:menu_backgroundColor="#86ffffff"
         fab:menu_labels_cornerRadius="3dp"
         fab:menu_labels_ellipsize="none"
         fab:menu_labels_margin="0dp"
@@ -124,17 +125,24 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintRight_creator="1"
         fab:layout_constraintBottom_toTopOf="@+id/adMain"
-
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
         fab:layout_constraintRight_toRightOf="parent">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/note_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_note"
+            fab:fab_label="Add Note"
+            fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/menu_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/ic_new_item"
-            fab:fab_label="Add new task"
+            fab:fab_label="Add new Task"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton

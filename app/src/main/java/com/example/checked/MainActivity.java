@@ -33,11 +33,15 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.checked.archive.Archive;
 import com.example.checked.data.TaskContract;
-import com.facebook.ads.AdSize;
+import com.example.checked.note.Notes;
+import com.example.checked.settings.Settings;
+import com.example.checked.task.AddTaskActivity;
+import com.example.checked.task.CustomCursorAdapter;
+import com.example.checked.utils.SpaceItemDecoration;
 import com.facebook.ads.AdView;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements
     public static boolean isVibrate;
     public static boolean isCount;
     public static int DEFAULT_COLOR;
+    public static int NOTE_DEFAULT_COLOR;
 
 
     public static String alert;
@@ -73,12 +78,15 @@ public class MainActivity extends AppCompatActivity implements
     private FloatingActionMenu menuRed;
     private FloatingActionButton fab1;
     private FloatingActionButton fab2;
+    private FloatingActionButton add_note;
+
 
     TextView emptyView;
     Cursor cursor;
 
     TextView count;
-    static Typeface courgette;
+    public static Typeface courgette;
+    public static Typeface roboto;
 
     private String[] emptyTexts = {
             "No things is good things.",
@@ -118,20 +126,23 @@ public class MainActivity extends AppCompatActivity implements
 
 
         courgette = Typeface.createFromAsset(getAssets(), "Courgette-Regular.ttf");
+        roboto = Typeface.createFromAsset(getAssets(), "Rationale-Regular.ttf");
+
 
         sharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
 
         MainActivity.isVibrate = sharedPreference.getBoolean("vibrate", true);
         MainActivity.isCount = sharedPreference.getBoolean("count", true);
-        MainActivity.DEFAULT_COLOR = sharedPreference.getInt("preference_color", (int) Constants.FIFTH_COLOR);
+        MainActivity.DEFAULT_COLOR = sharedPreference.getInt("preference_color", (int) Constants.FIVE);
+        MainActivity.NOTE_DEFAULT_COLOR = sharedPreference.getInt("note_color", (int) Constants.FIVE);
 
         sharedPreference.registerOnSharedPreferenceChangeListener(this);
 
-        LinearLayout adViewContainer = (LinearLayout) findViewById(R.id.adMain);
+     /*   LinearLayout adViewContainer = (LinearLayout) findViewById(R.id.adMain);
 
         adView = new AdView(this, "1312538295448755_1313929028643015", AdSize.BANNER_HEIGHT_50);
         adViewContainer.addView(adView);
-        adView.loadAd();
+        adView.loadAd();*/
 
 
         emptyView = (TextView) findViewById(R.id.emptyview);
@@ -139,14 +150,26 @@ public class MainActivity extends AppCompatActivity implements
         menuRed = (FloatingActionMenu) findViewById(R.id.menu);
         fab1 = (FloatingActionButton) findViewById(R.id.menu_item);
         fab2 = (FloatingActionButton) findViewById(R.id.menu_item_2);
+        add_note = (FloatingActionButton) findViewById(R.id.note_item);
 
+
+        menuRed.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
+            @Override
+            public void onMenuToggle(boolean opened) {
+                if (opened) {
+                    //   mRecyclerView.setVisibility(View.INVISIBLE);
+                    // fab:menu_backgroundColor="#86ffffff"  instead
+                } else {
+                    //   mRecyclerView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         menuRed.setClosedOnTouchOutside(true);
 
 
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //  Toast.makeText(MainActivity.this,"hi",Toast.LENGTH_LONG).show();
                 menuRed.close(true);
                 Intent addTaskIntent = new Intent(MainActivity.this, AddTaskActivity.class);
                 startActivity(addTaskIntent);
@@ -160,6 +183,15 @@ public class MainActivity extends AppCompatActivity implements
                 Intent addTaskIntent = new Intent(MainActivity.this, Archive.class);
                 addTaskIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(addTaskIntent);
+            }
+        });
+
+        add_note.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menuRed.close(true);
+                Intent addNoteIntent = new Intent(MainActivity.this, Notes.class);
+                startActivity(addNoteIntent);
             }
         });
 
@@ -327,11 +359,16 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         if (key.equals("preference_color")) {
-            MainActivity.DEFAULT_COLOR = sharedPreferences.getInt("preference_color", (int) Constants.FIFTH_COLOR);
+            MainActivity.DEFAULT_COLOR = sharedPreferences.getInt("preference_color", (int) Constants.FIVE);
+        }
+
+        if (key.equals("note_color")) {
+            MainActivity.NOTE_DEFAULT_COLOR = sharedPreferences.getInt("note_color", (int) Constants.FIVE);
         }
 
 
-
     }
+
+
 }
 

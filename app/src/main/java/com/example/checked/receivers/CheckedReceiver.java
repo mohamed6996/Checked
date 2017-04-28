@@ -1,4 +1,4 @@
-package com.example.checked;
+package com.example.checked.receivers;
 
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -13,7 +13,7 @@ public class CheckedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        uri = AlarmToastReceiver.mCurrentUri;
+        uri = NotificationReceiver.mCurrentUri;
         context.getContentResolver().delete(uri, null, null);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

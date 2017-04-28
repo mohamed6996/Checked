@@ -1,4 +1,4 @@
-package com.example.checked;
+package com.example.checked.settings;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +13,8 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 
+import com.example.checked.MainActivity;
+import com.example.checked.R;
 import com.thebluealliance.spectrum.SpectrumPreferenceCompat;
 
 /**

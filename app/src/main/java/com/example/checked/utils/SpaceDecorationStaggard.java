@@ -1,18 +1,18 @@
-package com.example.checked;
+package com.example.checked.utils;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Created by lenovo on 3/15/2017.
+ * Created by lenovo on 4/24/2017.
  */
 
-public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+public class SpaceDecorationStaggard extends RecyclerView.ItemDecoration {
 
     private final int verticalSpaceHeight;
 
-    public SpaceItemDecoration(int verticalSpaceHeight) {
+    public SpaceDecorationStaggard(int verticalSpaceHeight) {
         this.verticalSpaceHeight = verticalSpaceHeight;
     }
 
@@ -21,5 +21,10 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
                                RecyclerView.State state) {
         outRect.bottom = verticalSpaceHeight;
         outRect.top = verticalSpaceHeight;
+        outRect.right = verticalSpaceHeight;
+        outRect.left = verticalSpaceHeight;
+
     }
+
+
 }

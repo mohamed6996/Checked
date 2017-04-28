@@ -1,4 +1,4 @@
-package com.example.checked;
+package com.example.checked.widget;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;

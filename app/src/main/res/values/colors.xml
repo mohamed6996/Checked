@@ -16,6 +16,7 @@
 
     <item type="color" name="color_black">#000000</item>
     <item type="color" name="color_gray">#6b6b6b</item>
+    <item type="color" name="color_gray_archive">#bfb3b3b3</item>
 
 
     <array name="color_array">
@@ -28,11 +29,25 @@
         <item>#c99b3e</item>
         <item>#3e2723</item>
 
-
     </array>
 
 
+    <array name="note_color_array">
+        <item>#bf360c</item>
+        <item>#880e4f</item>
+        <item>#7b1fa2</item>
+        <item>#e040fb</item>
 
+        <item>#3F51B5</item>
+        <item>#26c6da</item>
+        <item>#009688</item>
+        <item>#4caf50</item>
+        <item>#607D8B</item>
+        <item>#827717</item>
+        <item>#c99b3e</item>
+        <item>#3e2723</item>
+
+    </array>
 
 
 </resources>

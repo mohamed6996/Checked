@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.checked;
+package com.example.checked.task;
 
 
 import android.app.AlarmManager;
@@ -36,6 +36,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.example.checked.receivers.NotificationReceiver;
+import com.example.checked.Constants;
+import com.example.checked.ListItemClickListner;
+import com.example.checked.MainActivity;
+import com.example.checked.R;
 import com.example.checked.data.TaskContract;
 
 import java.text.SimpleDateFormat;
@@ -154,28 +159,28 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
 
         //   Toast.makeText(mContext, "" + position, Toast.LENGTH_LONG).show();
 
-        if (position == Constants.FIRST_COLR) {
+        if (position == Constants.ONE) {
             holder.regularLayout.setBackgroundColor(color_array[0]);
         }
-        if (position == Constants.SECOND_COLOR) {
+        if (position == Constants.TWO) {
             holder.regularLayout.setBackgroundColor(color_array[1]);
         }
-        if (position == Constants.THIRD_COLOR) {
+        if (position == Constants.THREE) {
             holder.regularLayout.setBackgroundColor(color_array[2]);
         }
-        if (position == Constants.FORTH_COLOR) {
+        if (position == Constants.FOUR) {
             holder.regularLayout.setBackgroundColor(color_array[3]);
         }
-        if (position == Constants.FIFTH_COLOR) {
+        if (position == Constants.FIVE) {
             holder.regularLayout.setBackgroundColor(color_array[4]);
         }
-        if (position == Constants.SIXTH_COLOR) {
+        if (position == Constants.SIX) {
             holder.regularLayout.setBackgroundColor(color_array[5]);
         }
-        if (position == Constants.SEVENTH_COLOR) {
+        if (position == Constants.SEVEN) {
             holder.regularLayout.setBackgroundColor(color_array[6]);
         }
-        if (position == Constants.EIGHTH_COLOR) {
+        if (position == Constants.EIGHT) {
             holder.regularLayout.setBackgroundColor(color_array[7]);
         }
 
@@ -189,7 +194,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
     private void setAlarm(long time) {
 
 
-        Intent intent = new Intent(mContext, AlarmToastReceiver.class);
+        Intent intent = new Intent(mContext, NotificationReceiver.class);
         intent.putExtra("title", title);
         intent.putExtra("description", description);
         String stringId = Integer.toString(id);

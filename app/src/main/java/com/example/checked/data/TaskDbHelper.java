@@ -21,21 +21,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-
 public class TaskDbHelper extends SQLiteOpenHelper {
 
     // The name of the database
     private static final String DATABASE_NAME = "tasksDb.db";
 
     // If you change the database schema, you must increment the database version
-    private static final int VERSION = 2;
+    private static final int VERSION = 3;
 
 
     // Constructor
     TaskDbHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
-
 
 
     @Override
@@ -55,10 +53,17 @@ public class TaskDbHelper extends SQLiteOpenHelper {
                 TaskContract.TaskArchiveEntry.COLUMN_TITLE_ARCHIVE + " TEXT, " +
                 TaskContract.TaskArchiveEntry.COLUMN_DESCRIPTION_ARCHIVE + " TEXT );";
 
+        // Create tasks table (careful to follow SQL formatting rules)
+        final String CREATE_TABLE_NOTE = "CREATE TABLE " + TaskContract.NoteEntry.TABLE_NAME + " (" +
+                TaskContract.NoteEntry._ID + " INTEGER PRIMARY KEY, " +
+                TaskContract.NoteEntry.COLUMN_TITLE_NOTE + " TEXT, " +
+                TaskContract.NoteEntry.COLUMN_DESCRIPTION_note + " TEXT, " +
+                TaskContract.NoteEntry.COLUMN_NOTE_COLOR_POSITION + " INTEGER ); ";
 
 
         db.execSQL(CREATE_TABLE);
         db.execSQL(CREATE_TABLE_ARCHIVE);
+        db.execSQL(CREATE_TABLE_NOTE);
 
     }
 
@@ -67,6 +72,7 @@ public class TaskDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TaskContract.TaskEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TaskContract.TaskArchiveEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TaskContract.NoteEntry.TABLE_NAME);
 
         onCreate(db);
     }

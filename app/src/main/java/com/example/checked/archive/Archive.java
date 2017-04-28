@@ -1,4 +1,4 @@
-package com.example.checked;
+package com.example.checked.archive;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,11 +17,18 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.checked.task.AddTaskActivity;
+import com.example.checked.ListItemClickListner;
+import com.example.checked.R;
+import com.example.checked.utils.SpaceItemDecoration;
 import com.example.checked.data.TaskContract;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
+
 import cn.refactor.lib.colordialog.ColorDialog;
 import cn.refactor.lib.colordialog.PromptDialog;
+
+import static com.example.checked.MainActivity.courgette;
 
 public class Archive extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor>, ListItemClickListner {
@@ -48,18 +55,17 @@ public class Archive extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_archive);
 
-    LinearLayout adViewContainer = (LinearLayout) findViewById(R.id.adArchive);
+        LinearLayout adViewContainer = (LinearLayout) findViewById(R.id.adArchive);
 
-    adView = new AdView(this, "1312538295448755_1313929665309618", AdSize.BANNER_HEIGHT_50);
-    adViewContainer.addView(adView);
-    adView.loadAd();
-
+        adView = new AdView(this, "1312538295448755_1313929665309618", AdSize.BANNER_HEIGHT_50);
+        adViewContainer.addView(adView);
+        adView.loadAd();
 
 
         archice_empty_view = (TextView) findViewById(R.id.archive_empty_view);
         toolbar = (Toolbar) findViewById(R.id.archive_toolbar);
-        toolbar.setTitle("Archive");
-
+        TextView toolbartitle = (TextView) findViewById(R.id.toolbar_archive_title);
+        toolbartitle.setTypeface(courgette);
         toolbar.inflateMenu(R.menu.menu_archive_delete);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -159,9 +165,9 @@ public class Archive extends AppCompatActivity implements
         // for RV decoration
         // add divider between items
 
-      /*  DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewArchive.getContext(),
+      /*  DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewNote.getContext(),
                 linearLayoutManager.getOrientation());
-        recyclerViewArchive.addItemDecoration(dividerItemDecoration);*/
+        recyclerViewNote.addItemDecoration(dividerItemDecoration);*/
 
         // add space between items
         recyclerViewArchive.addItemDecoration(new SpaceItemDecoration(5));
@@ -205,9 +211,6 @@ public class Archive extends AppCompatActivity implements
 
         } else {
             recyclerViewArchive.setVisibility(View.GONE);
-            //   String random =emptyTexts[ new Random().nextInt(emptyTexts.length)] ;
-            //   archice_empty_view.setText(random);
-            //   emptyView.setTypeface(courgette);
             archice_empty_view.setVisibility(View.VISIBLE);
         }
         archiveAdapter.swapCursor(data);

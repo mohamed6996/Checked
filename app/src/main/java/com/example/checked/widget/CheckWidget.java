@@ -1,4 +1,4 @@
-package com.example.checked;
+package com.example.checked.widget;
 
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
@@ -11,7 +11,12 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.TaskStackBuilder;
 import android.widget.RemoteViews;
-import android.widget.Toast;
+
+import com.example.checked.MainActivity;
+import com.example.checked.R;
+import com.example.checked.archive.Archive;
+import com.example.checked.note.Notes;
+import com.example.checked.task.AddTaskActivity;
 
 public class CheckWidget extends AppWidgetProvider {
 
@@ -42,6 +47,10 @@ public class CheckWidget extends AppWidgetProvider {
             Intent ic_history_intent = new Intent(context, Archive.class);
             PendingIntent history_pendingIntent = PendingIntent.getActivity(context, 0, ic_history_intent, 0);
             widgetView.setOnClickPendingIntent(R.id.ic_history, history_pendingIntent);
+
+            Intent ic_note_intent = new Intent(context, Notes.class);
+            PendingIntent note_pendingIntent = PendingIntent.getActivity(context, 0, ic_note_intent, 0);
+            widgetView.setOnClickPendingIntent(R.id.ic_note, note_pendingIntent);
 
 
 

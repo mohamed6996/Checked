@@ -34,6 +34,8 @@ public class TaskContract {
     // This is the path for the "tasks" directory
     public static final String PATH_TASKS = "tasks";
     public static final String PATH_ARCHIVE = "Archive";
+    public static final String PATH_NOTE = "note";
+
 
 
     public static final class TaskEntry implements BaseColumns {
@@ -68,6 +70,23 @@ public class TaskContract {
         // "_ID" column in addition to the two below
         public static final String COLUMN_TITLE_ARCHIVE = "title_archive";
         public static final String COLUMN_DESCRIPTION_ARCHIVE = "description_archive";
+
+    }
+
+    public static final class NoteEntry implements BaseColumns {
+
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_NOTE).build();
+
+        // Task table and column names
+        public static final String TABLE_NAME = "notes";
+
+        // Since TaskEntry implements the interface "BaseColumns", it has an automatically produced
+        // "_ID" column in addition to the two below
+        public static final String COLUMN_TITLE_NOTE = "note_title";
+        public static final String COLUMN_DESCRIPTION_note = "note_content";
+        public static final String COLUMN_NOTE_COLOR_POSITION = "note_colorPosition";
+
 
     }
 }

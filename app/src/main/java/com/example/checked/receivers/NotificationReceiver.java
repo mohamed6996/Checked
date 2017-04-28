@@ -1,4 +1,4 @@
-package com.example.checked;
+package com.example.checked.receivers;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -10,6 +10,10 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
+import com.example.checked.MainActivity;
+import com.example.checked.R;
+import com.example.checked.task.AddTaskActivity;
+
 import java.util.Date;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
@@ -18,7 +22,7 @@ import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
  * Created by reale on 24/11/2016.
  */
 
-public class AlarmToastReceiver extends BroadcastReceiver {
+public class NotificationReceiver extends BroadcastReceiver {
 
     static Uri mCurrentUri;
 
@@ -79,11 +83,11 @@ public class AlarmToastReceiver extends BroadcastReceiver {
 
         builder.setStyle(bigTextStyle);
 
-        int m = (int) (new Date().getTime() / 1000L % Integer.MAX_VALUE);
+        int randomNumber = (int) (new Date().getTime() / 1000L % Integer.MAX_VALUE);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(m, builder.build());
+        notificationManager.notify(randomNumber, builder.build());
 
 
     }

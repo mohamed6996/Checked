@@ -1,4 +1,4 @@
-package com.example.checked;
+package com.example.checked.archive;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.checked.ListItemClickListner;
+import com.example.checked.R;
 import com.example.checked.data.TaskContract;
 
 
@@ -89,7 +91,7 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
     class ArchiveViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
-        TextView taskDescriptionView, content;
+        TextView taskDescriptionView, content, redFlag;
         //  TextView priorityView;
 
 
@@ -98,6 +100,7 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
 
             taskDescriptionView = (TextView) itemView.findViewById(R.id.archive_taskDescription);
             content = (TextView) itemView.findViewById(R.id.archive_content);
+            redFlag = (TextView) itemView.findViewById(R.id.red_flag);
 
             itemView.setOnClickListener(this);
 

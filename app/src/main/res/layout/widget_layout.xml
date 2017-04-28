@@ -35,7 +35,7 @@
             <ImageView
                 android:id="@+id/ic_add"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentBottom="false"
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentRight="true"
@@ -48,12 +48,20 @@
             <ImageView
                 android:id="@+id/ic_history"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignTop="@+id/ic_add"
                 android:layout_marginEnd="17dp"
                 android:layout_toStartOf="@+id/ic_add"
                 android:src="@drawable/ic_history" />
 
+            <ImageView
+                android:id="@+id/ic_note"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@+id/ic_history"
+                android:layout_marginEnd="17dp"
+                android:layout_toStartOf="@+id/ic_history"
+                android:src="@drawable/ic_new_item" />
 
         </RelativeLayout>
 

@@ -40,6 +40,13 @@
             app:spectrum_closeOnSelected="false"
             app:spectrum_colors="@array/color_array" />
 
+        <com.thebluealliance.spectrum.SpectrumPreferenceCompat
+            android:key="note_color"
+            android:summary="This color will be selected, if you do not select a color for a note"
+            android:title="Note default color"
+            app:spectrum_closeOnSelected="false"
+            app:spectrum_colors="@array/note_color_array" />
+
 
     </android.support.v7.preference.PreferenceCategory>
 
